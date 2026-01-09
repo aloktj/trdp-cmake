@@ -11,6 +11,7 @@ list(FILTER filtered_sources EXCLUDE REGEX "/vos/windows_sim/")
 list(FILTER filtered_sources EXCLUDE REGEX "/trdp_dllmain\\.c$")
 list(FILTER filtered_sources EXCLUDE REGEX "/spy/")
 list(FILTER filtered_sources EXCLUDE REGEX "/vos_sockTSN\\.c$")
+list(FILTER filtered_sources EXCLUDE REGEX "/common/old/")
 
 add_library(trdp STATIC)
 if(filtered_sources)

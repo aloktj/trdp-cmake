@@ -7,6 +7,7 @@ This repository provides clean, source-only snapshots of TRDP releases, with a m
 - 1.3.3.0
 - 2.0.3.0
 - 2.1.0.0
+- 3.0.0.0
 
 ## Build
 
@@ -22,6 +23,11 @@ cmake --build build -j
 
 ```sh
 cmake -S . -B build -DTRDP_VERSION=2.1.0.0 -DTRDP_MD_SUPPORT=ON
+cmake --build build -j
+```
+
+```sh
+cmake -S . -B build -DTRDP_VERSION=3.0.0.0 -DTRDP_MD_SUPPORT=ON
 cmake --build build -j
 ```
 
