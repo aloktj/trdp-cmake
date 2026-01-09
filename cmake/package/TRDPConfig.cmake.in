@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+set(TRDP_SELECTED_VERSION "@TRDP_VERSION@")
+
+include(CMakeFindDependencyMacro)
+find_dependency(Threads)
+
+include("${CMAKE_CURRENT_LIST_DIR}/TRDPTargets.cmake")
