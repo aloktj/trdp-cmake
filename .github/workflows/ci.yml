@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  source-only-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source-only versions
+        run: scripts/check_source_only.sh
+
+  build-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        trdp_version: [1.3.3.0, 2.0.3.0, 2.1.0.0, 3.0.0.0]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential
+      - name: Configure
+        run: cmake -S . -B build_${{ matrix.trdp_version }} -DTRDP_VERSION=${{ matrix.trdp_version }} -DTRDP_MD_SUPPORT=ON
+      - name: Build
+        run: cmake --build build_${{ matrix.trdp_version }} -j
+      - name: Configure newest without markdown support
+        if: matrix.trdp_version == '3.0.0.0'
+        run: cmake -S . -B build_3_md_off -DTRDP_VERSION=3.0.0.0 -DTRDP_MD_SUPPORT=OFF
+      - name: Build newest without markdown support
+        if: matrix.trdp_version == '3.0.0.0'
+        run: cmake --build build_3_md_off -j
