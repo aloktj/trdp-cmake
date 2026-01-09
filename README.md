@@ -50,6 +50,16 @@ To disable MD support:
 cmake -S . -B build -DTRDP_VERSION=3.0.0.0 -DTRDP_MD_SUPPORT=OFF
 ```
 
+## Tests (shared libraries)
+
+Configure, build, and run the shared-library smoke tests (local install prefixes, no root required):
+
+```sh
+cmake -S . -B build -DTRDP_ENABLE_TESTING=ON
+cmake --build build -j
+ctest --test-dir build --output-on-failure
+```
+
 ## Install
 
 Local prefix install:

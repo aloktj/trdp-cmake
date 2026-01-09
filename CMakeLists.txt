@@ -2,11 +2,17 @@ cmake_minimum_required(VERSION 3.16)
 project(trdp C)
 
 include(GNUInstallDirs)
+include(CTest)
 
 option(TRDP_BUILD_TRDPAP "Build TRDP application/helper library when sources exist" ON)
 option(TRDP_BUILD_EXAMPLES "Build example/tool executables when sources exist" OFF)
 option(TRDP_BUILD_SHARED "Build shared libs (in addition to static) if supported" OFF)
 option(TRDP_BUILD_CONSUMER_SMOKE "Build consumer smoke test against installed package" OFF)
+option(TRDP_ENABLE_TESTING "Enable tests" ON)
+
+if(TRDP_ENABLE_TESTING)
+  enable_testing()
+endif()
 
 set(TRDP_VERSION "1.3.3.0" CACHE STRING "TRDP version to build")
 set(TRDP_SRC_DIR "${CMAKE_SOURCE_DIR}/versions/${TRDP_VERSION}")
@@ -41,3 +47,25 @@ install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/TRDPConfigVersion.cmake
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/TRDP
 )
+
+if(TRDP_ENABLE_TESTING)
+  add_test(NAME shared_3_0_0_0_ap
+    COMMAND ${CMAKE_COMMAND}
+      -DREPO_DIR=${CMAKE_SOURCE_DIR}
+      -DBUILD_DIR=${CMAKE_BINARY_DIR}/ct_shared_3000
+      -DINSTALL_DIR=${CMAKE_BINARY_DIR}/install_shared_3000
+      -DTRDP_VERSION=3.0.0.0
+      -DTRDP_BUILD_TRDPAP=ON
+      -P ${CMAKE_SOURCE_DIR}/cmake/ctest/shared_build_and_run.cmake
+  )
+
+  add_test(NAME shared_2_0_3_0_core
+    COMMAND ${CMAKE_COMMAND}
+      -DREPO_DIR=${CMAKE_SOURCE_DIR}
+      -DBUILD_DIR=${CMAKE_BINARY_DIR}/ct_shared_2030
+      -DINSTALL_DIR=${CMAKE_BINARY_DIR}/install_shared_2030
+      -DTRDP_VERSION=2.0.3.0
+      -DTRDP_BUILD_TRDPAP=OFF
+      -P ${CMAKE_SOURCE_DIR}/cmake/ctest/shared_build_and_run.cmake
+  )
+endif()
