@@ -1,0 +1,4 @@
+#pragma once
+
+/* Selected include prefix is configured by CMake */
+#include "@TRDP_CONSUMER_INCLUDE@"
