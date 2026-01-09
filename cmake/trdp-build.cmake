@@ -5,8 +5,12 @@ set(filtered_sources "${all_c}")
 if(NOT TRDP_MD_SUPPORT)
   list(FILTER filtered_sources EXCLUDE REGEX ".*tlm.*\\.c$")
 endif()
+list(FILTER filtered_sources EXCLUDE REGEX "/(example|ladder|resources|test)/")
 list(FILTER filtered_sources EXCLUDE REGEX "/vos/(windows|vxworks|esp|integrity)/")
+list(FILTER filtered_sources EXCLUDE REGEX "/vos/windows_sim/")
 list(FILTER filtered_sources EXCLUDE REGEX "/trdp_dllmain\\.c$")
+list(FILTER filtered_sources EXCLUDE REGEX "/spy/")
+list(FILTER filtered_sources EXCLUDE REGEX "/vos_sockTSN\\.c$")
 
 add_library(trdp STATIC)
 if(filtered_sources)
@@ -17,6 +21,10 @@ target_compile_definitions(trdp PUBLIC POSIX)
 
 set(trdp_include_candidates
   "${TRDP_SRC_DIR}/src/api"
+  "${TRDP_SRC_DIR}/src/common"
+  "${TRDP_SRC_DIR}/src/vos/api"
+  "${TRDP_SRC_DIR}/src/vos/common"
+  "${TRDP_SRC_DIR}/src/vos/posix"
   "${TRDP_SRC_DIR}/api"
   "${TRDP_SRC_DIR}/vos/api"
   "${TRDP_SRC_DIR}/vos/common"
