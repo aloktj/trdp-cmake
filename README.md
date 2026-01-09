@@ -9,6 +9,10 @@ This repository provides clean, source-only snapshots of TRDP releases, with a m
 - 2.1.0.0
 - 3.0.0.0
 
+## CI
+
+CI builds all supported TRDP versions in a matrix and validates that PRs keep `versions/` source-only (only `.c`, `.h`, and `.md` files are allowed).
+
 ## Build
 
 ```sh

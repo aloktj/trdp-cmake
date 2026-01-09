@@ -1,4 +1,5 @@
 build/
+build_*/
 bld/
 out/
 _deps/
