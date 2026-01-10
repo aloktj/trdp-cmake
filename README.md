@@ -83,6 +83,8 @@ Headers are installed under `<prefix>/include/trdp/<TRDP_VERSION>/`.
 Generate an installable Debian package via CPack:
 
 ```sh
+sudo apt-get update
+sudo apt-get install -y file
 cmake -S . -B build -DTRDP_VERSION=3.0.0.0 -DTRDP_BUILD_SHARED=ON
 cmake --build build -j
 cpack -G DEB --config build/CPackConfig.cmake
